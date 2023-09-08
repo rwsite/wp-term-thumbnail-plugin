@@ -19,6 +19,8 @@
  * Затем получить URL картинки: $image_url = wp_get_attachment_image_url( $image_id, 'thumbnail' );
  */
 
+defined( 'ABSPATH' ) or die( 'Nothing here!' );
+
 if (!class_exists('TermThumbnail')) {
 
     require_once 'wp-term-thumbnail-settings.php';
