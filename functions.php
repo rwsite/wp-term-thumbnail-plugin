@@ -47,10 +47,10 @@ function has_term_thumbnail($term_id = '')
  */
 function the_term_thumbnail($attr)
 {
-    if (is_category()) :
-        $attr['term_id'] = get_query_var('cat'); elseif (is_tag()) :
-        $attr['term_id'] = get_query_var('tag'); elseif (is_tax()) :
-        $attr['term_id'] = get_queried_object()->term_id;
+    global $wp_query;
+    
+    if (is_category() || is_tag() || is_tax() ) :
+        $attr['term_id'] = $wp_query->get_queried_object_id();
     endif;
 
     echo get_term_thumbnail($attr);
