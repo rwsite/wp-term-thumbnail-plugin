@@ -7,7 +7,7 @@ class TermThumbnailSettings
 {
     public string $file;
     public const key = 'term_thumbnail';
-    public const settings_page = 'media'; // kama_thumb on multisite
+    public const settings_page = 'media';
     public ?array $settings;
 
     public function __construct($file)
