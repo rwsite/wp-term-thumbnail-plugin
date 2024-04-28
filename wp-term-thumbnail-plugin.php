@@ -73,7 +73,9 @@ if (!class_exists('TermThumbnail')) {
             add_action('admin_print_footer_scripts', [$this, 'add_script'], 99);
             ?>
             <div class="form-field term-group">
-                <label for="term_image_id"><span class="dashicons dashicons-format-image"></span> Thumbnail</label>
+                <label for="term_image_id"><span class="dashicons dashicons-format-image"></span>
+                    <?= __('Thumbnail', 'wp-term-thumbnail') ?>
+                </label>
                 <input type="hidden" id="term_image_id" name="term_image_id" class="custom_media_url" value="">
                 <div id="term__image__wrapper"></div>
                 <p>
@@ -93,18 +95,32 @@ if (!class_exists('TermThumbnail')) {
 
             add_action('admin_print_footer_scripts', [$this, 'add_script'], 99);
 
-            $image_id = get_term_meta($term->term_id, 'term_image_id', true);
+            $thumbnail_id = get_term_meta($term->term_id, 'term_image_id', true);
+            $url = wp_get_attachment_image_src($thumbnail_id, 'thumbnail', true)[0];
+
             ?>
             <tr class="form-field term-group-wrap">
                 <th scope="row">
                     <label for="term_image_id"><span class="dashicons dashicons-format-image"></span> Thumbnail</label>
                 </th>
                 <td>
-                    <input type="hidden" id="term_image_id" name="term_image_id" value="<?php echo $image_id; ?>">
+                    <input type="hidden" id="term_image_id" name="term_image_id" value="<?php echo $thumbnail_id; ?>">
                     <div id="term__image__wrapper">
-                        <?php if ($image_id) {
-                            echo wp_get_attachment_image($image_id, 'thumbnail');
-                        } ?>
+                        <?php
+                        if (false !== strpos($url, '.svg')) {
+                            $thumb = '<img src="'.$url .'" width="100" height="100">';
+                        } elseif (function_exists('kama_thumb_img')) {
+                            $thumb = kama_thumb_a_img([
+                                'width'  => '100',
+                                'height' => '100',
+                                'crop'   => true,
+                                'a_attr' => 'data-rel="lightcase"',
+                            ], $url);
+                        } else {
+                            $thumb = wp_get_attachment_image($thumbnail_id, ['100', '100'], true);
+                        }
+                        echo $thumb;
+                        ?>
                     </div>
                     <p>
                         <a href="#" class="button button-secondary tax_media_button"><?php _e('Add'); ?></a>
@@ -197,19 +213,25 @@ if (!class_exists('TermThumbnail')) {
         {
             switch ( $column_name ) {
                 case 'thumbnail':
+
                     $thumbnail_id = get_term_meta($term_id, 'term_image_id', true);
-                    if(!empty($thumbnail_id)){
+                    $url = wp_get_attachment_image_src($thumbnail_id, 'thumbnail', true)[0];
+
+                    if (false !== strpos($url, '.svg')) {
+                        $thumb = '<img src="'.$url .'" width="100" height="100">';
+                    } else if(!empty($thumbnail_id)){
                         $width = $height = '90';
                         if(function_exists( 'kama_thumb_img')){
-                            $thumb = kama_thumb_a_img( [
-                                'width' => $width,
-                                'height'=> $height,
-                                'crop'  => true,
-                                'a_attr'  => 'data-rel="lightcase"',
-                            ], $thumbnail_id );
+                            $thumb = kama_thumb_a_img([
+                                'width'  => $width,
+                                'height' => $height,
+                                'crop'   => true,
+                                'a_attr' => 'data-rel="lightcase"',
+                            ], $thumbnail_id);
                         } else {
                             $thumb = wp_get_attachment_image( $thumbnail_id, [$width, $height], true );
                         }
+
                     }
                     return $thumb ?? '<span class="dashicons dashicons-format-image"></span>';
                 break;
