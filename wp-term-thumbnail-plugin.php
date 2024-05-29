@@ -243,5 +243,5 @@ if (!class_exists('TermThumbnail')) {
 
     add_action('init', function () {
         (new TermThumbnail())->add_actions();
-    });
+    }, 999);
 }
