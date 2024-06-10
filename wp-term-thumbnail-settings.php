@@ -35,6 +35,12 @@ class TermThumbnailSettings
 
     public function admin_enqueue_scripts(){
 
+        $current_tax = get_current_screen()->taxonomy;
+        // in_array($this->settings['taxonomies']
+        if(!is_admin() || 'edit' != get_current_screen()->base){
+            return;
+        }
+
         $ver = defined('WP_DEBUG_SCRIPT') ? current_time('timestamp') : wp_get_theme()->get( 'Version' );
         $dir_uri = get_template_directory_uri();
         $dir_path = get_template_directory();
@@ -58,7 +64,7 @@ class TermThumbnailSettings
         wp_add_inline_script('lightcase', 'jQuery(document).ready(function($){
                 $("a[data-rel^=lightcase]").lightcase({
                     typeMapping: {
-                        "image": "webp,jpg,jpeg,gif,png,bmp",
+                        "image": "webp,jpg,jpeg,gif,png,bmp,svg",
                     },
                 });
         });');
