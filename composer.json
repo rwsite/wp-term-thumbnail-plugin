@@ -1,0 +1,14 @@
+{
+  "name": "rwsite/wp-term-thumbnail-plugin",
+  "description": "WP term thumbnail plugin",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "alex",
+      "email": "alex@rwsite.ru"
+    }
+  ],
+  "require": {
+  }
+}
