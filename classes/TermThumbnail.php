@@ -35,6 +35,7 @@ class TermThumbnail
     public function add_actions()
     {
         $this->plugin_settings->add_actions();
+
         foreach ($this->taxonomies as $taxname) {
             if (!taxonomy_exists($taxname)) {
                 continue;
@@ -122,42 +123,33 @@ class TermThumbnail
         ?>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
-                let orig_send_attachment = wp.media.editor.send.attachment;
-                let body = $('body');
-
-                function ct_media_upload(button_class) {
-                    body.on('click', button_class, function (e) {
-                        e.preventDefault();
-                        orig_send_attachment = function (props, attachment) {
-                            let src = attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.url;
-                            $('#term_image_id').val(attachment.id);
-                            $('#term_image').attr('src', src).css('display', 'block');
-                        }
-                        wp.media.editor.open($(this).attr('id'));
-                        return false;
-                    });
-                }
-
-                ct_media_upload('.tax_media_button.button');
-
-                body.on('click', '.tax_media_remove', function (e) {
+                $('#tax_media_button').click(function (e) {
                     e.preventDefault();
-                    if (confirm('<?php _e('Are you sure you want to delete the image?',
-                        'wp-term-thumbnail'); ?>')) {
-                        $('#term_image_id').val('');
-                        $('#term_image').attr('src', '').css('display', 'none');
+                    let image_frame;
+                    if (image_frame) {
+                        image_frame.open();
+                        return;
                     }
+                    image_frame = wp.media({
+                        title: '<?php _e('Choose image','wp-term-thumbnail'); ?>',
+                        button: {
+                            text: '<?php _e('Choose image','wp-term-thumbnail'); ?>'
+                        },
+                        multiple: false
+                    });
+                    image_frame.on('select', function () {
+                        let attachment = image_frame.state().get('selection').first().toJSON();
+                        $('#term_image_id').val(attachment.id);
+                        $('#term_image_preview').attr('src', attachment.url).show();
+                    });
+                    image_frame.open();
                 });
 
-
-                $(document).ajaxComplete(function (event, xhr, settings) {
-                    let queryStringArr = settings.data.split('&');
-                    if ($.inArray('action=add-tag', queryStringArr) !== -1) {
-                        let xml = xhr.responseXML;
-                        let $response = $(xml).find('term_id').text();
-                        if ($response !== '') {
-                            $('#term_image').attr('src', '').css('display', 'none');
-                        }
+                $('#tax_media_remove').click(function (e) {
+                    e.preventDefault();
+                    if (confirm('<?php _e('Are you sure you want to delete the image?','wp-term-thumbnail'); ?>')) {
+                        $('#term_image_id').val('');
+                        $('#term_image_preview').attr('src', '').hide();
                     }
                 });
             });
@@ -180,7 +172,7 @@ class TermThumbnail
                         multiple: false
                     });
                     image_frame.on('select', function () {
-                        var attachment = image_frame.state().get('selection').first().toJSON();
+                        let attachment = image_frame.state().get('selection').first().toJSON();
                         $('#taxonomy_image').val(attachment.id);
                         $('#taxonomy_image_preview').attr('src', attachment.url).show();
                     });
@@ -205,10 +197,8 @@ class TermThumbnail
     public function add_image_column($columns)
     {
         $num = 1; // после какой по счету колонки вставлять новые
-        $new_columns
-            = ['thumbnail' => '<span class="dashicons dashicons-format-image"></span>'];
-        return array_slice($columns, 0, $num) + $new_columns
-            + array_slice($columns, $num);
+        $new_columns = ['thumbnail' => '<span class="dashicons dashicons-format-image"></span>'];
+        return array_slice($columns, 0, $num) + $new_columns + array_slice($columns, $num);
     }
 
     /**

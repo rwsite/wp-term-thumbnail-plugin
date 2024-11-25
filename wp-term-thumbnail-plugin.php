@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:  Adds the ability to upload images for taxonomies
+ * Plugin Name:  Taxonomy Thumbnail
  * Plugin URL:   https://rwsite.ru
- * Description:  The plugin adds the ability to upload images for custom taxonomies.
+ * Description:  Taxonomy Thumbnail + Default Post Taxonomy Thumbnail. The plugin adds the ability to upload images for custom taxonomies.
  * Version:      1.0.2
  * Text Domain:  wp-term-thumbnail
  * Domain Path:  /languages
@@ -11,7 +11,7 @@
  *
  * Tags: taxonomy, thumbnail, cover, post
  * Requires at least: 6.3
- * Tested up to: 6.5.0
+ * Tested up to: 6.7.2
  * Requires PHP: 8.0+
  *
  * How to use:
@@ -29,6 +29,8 @@ require_once 'includes/functions.php';
 require_once 'classes/TermThumbnail.php';
 
 add_action('init', function () {
-    (new TermThumbnail(__FILE__))->add_actions();
+	load_plugin_textdomain( 'wp-term-thumbnail', false, dirname(plugin_basename(__FILE__)) . '/languages' );
+
+	(new TermThumbnail(__FILE__))->add_actions();
 }, 99);
 

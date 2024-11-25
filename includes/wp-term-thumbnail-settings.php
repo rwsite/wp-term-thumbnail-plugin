@@ -114,15 +114,15 @@ class TermThumbnailSettings
     {
         // для мультисайта создается отдельная страница в настройках сети
         if (is_multisite()) {
-            $hook = add_submenu_page('settings.php', __('Term Thumbnail Settings', 'thumbnail'),
-                __('Term Thumbnail', 'thumbnail' ), 'manage_network_options', self::settings_page,
+            $hook = add_submenu_page('settings.php', __('Term Thumbnail Settings', 'wp-term-thumbnail'),
+                __('Term Thumbnail', 'wp-term-thumbnail' ), 'manage_network_options', self::settings_page,
                 [$this,'_network_options_page']
             );
         }
 
-        add_settings_section(self::key, __('Term Thumbnail Settings', 'thumbnail'), '', self::settings_page);
+        add_settings_section(self::key, __('Term Thumbnail Settings', 'wp-term-thumbnail'), '', self::settings_page);
         add_settings_field(self::key,
-            __('Выберите поддерживаемые таксономии', 'thumbnail'),
+            __('Выберите поддерживаемые таксономии', 'wp-term-thumbnail'),
             [$this, 'options_field'],
             self::settings_page,
             self::key
@@ -193,7 +193,7 @@ class TermThumbnailSettings
             return $actions;
         }
 
-        $settings_link = '<a href="' . admin_url('options-media.php') . '">' . __('Settings', 'thumbnail') . '</a>';
+        $settings_link = '<a href="' . admin_url('options-media.php') . '">' . __('Settings', 'wp-term-thumbnail') . '</a>';
         array_unshift($actions, $settings_link);
 
         return $actions;

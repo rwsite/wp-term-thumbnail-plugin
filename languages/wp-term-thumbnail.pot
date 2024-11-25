@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Добавляет возможность загружать изображения для "
 "таксономий\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-24 23:54+0000\n"
+"POT-Creation-Date: 2024-11-25 00:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -17,23 +17,20 @@ msgstr ""
 "X-Loco-Version: 2.6.14; wp-6.7.1\n"
 "X-Domain: wp-term-thumbnail"
 
-#. Name of the plugin
-msgid "Adds the ability to upload images for taxonomies"
-msgstr ""
-
 #. Author of the plugin
-msgid "Aleksey Tikhomirov"
+msgid "Aleksei Tikhomirov"
 msgstr ""
 
-#: classes/TermThumbnail.php:145 classes/TermThumbnail.php:192
+#: classes/TermThumbnail.php:150 classes/TermThumbnail.php:184
 msgid "Are you sure you want to delete the image?"
 msgstr ""
 
-#: classes/TermThumbnail.php:176 classes/TermThumbnail.php:178
+#: classes/TermThumbnail.php:134 classes/TermThumbnail.php:136
+#: classes/TermThumbnail.php:168 classes/TermThumbnail.php:170
 msgid "Choose image"
 msgstr ""
 
-#: template/form.php:39
+#: template/form.php:40
 msgid "Default Post Taxonomy Thumbnail"
 msgstr ""
 
@@ -41,8 +38,16 @@ msgstr ""
 msgid "https://rwsite.ru"
 msgstr ""
 
-#: template/form.php:30 template/form.php:53
+#: template/form.php:31 template/form.php:54
 msgid "Remove image"
+msgstr ""
+
+#: includes/wp-term-thumbnail-settings.php:196
+msgid "Settings"
+msgstr ""
+
+#. Name of the plugin
+msgid "Taxonomy Thumbnail"
 msgstr ""
 
 #: template/form.php:13
@@ -50,9 +55,24 @@ msgid "Taxonomy thumbnail"
 msgstr ""
 
 #. Description of the plugin
-msgid "The plugin adds the ability to upload images for custom taxonomies."
+msgid ""
+"Taxonomy Thumbnail + Default Post Taxonomy Thumbnail. The plugin adds the "
+"ability to upload images for custom taxonomies."
 msgstr ""
 
-#: template/form.php:26 template/form.php:50
+#: includes/wp-term-thumbnail-settings.php:118
+msgid "Term Thumbnail"
+msgstr ""
+
+#: includes/wp-term-thumbnail-settings.php:117
+#: includes/wp-term-thumbnail-settings.php:123
+msgid "Term Thumbnail Settings"
+msgstr ""
+
+#: template/form.php:28 template/form.php:51
 msgid "Upload image"
+msgstr ""
+
+#: includes/wp-term-thumbnail-settings.php:125
+msgid "Выберите поддерживаемые таксономии"
 msgstr ""
