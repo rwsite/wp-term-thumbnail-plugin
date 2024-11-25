@@ -3,7 +3,7 @@
  * Plugin Name:  Taxonomy Thumbnail
  * Plugin URL:   https://rwsite.ru
  * Description:  Taxonomy Thumbnail + Default Post Taxonomy Thumbnail. The plugin adds the ability to upload images for custom taxonomies.
- * Version:      1.0.2
+ * Version:      1.0.3
  * Text Domain:  wp-term-thumbnail
  * Domain Path:  /languages
  * Author:       Aleksei Tikhomirov
