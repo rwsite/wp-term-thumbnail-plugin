@@ -36,7 +36,7 @@
     <th scope="row" valign="top">
         <label for="taxonomy_image">
             <span class="dashicons dashicons-format-image"></span>
-            <?php _e('Default Post Thumbnail', 'wp-term-thumbnail'); ?>
+            <?php _e('Default Post Taxonomy Thumbnail', 'wp-term-thumbnail'); ?>
         </label>
     </th>
     <td>
